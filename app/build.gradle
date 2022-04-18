@@ -69,4 +69,7 @@ dependencies {
     testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
 
+    // Architecture Components core testing library (for LiveData test)
+    testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
+
 }
