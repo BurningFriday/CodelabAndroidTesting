@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.android.architecture.blueprints.todoapp.Event
+import com.example.android.architecture.blueprints.todoapp.getOrAwaitValue
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
@@ -24,27 +25,17 @@ class TasksViewModelTest {
     fun addNewTask_setsNewTaskEvent() {
 
         // Given a fresh ViewModel
+        // AndroidX Test 라이브러리로부터 applicationContext를 얻어와 뷰모델을 생성한다.
         val tasksViewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
 
-        // Create observer - no need for it to do anything!
-        val observer = Observer<Event<Unit>> {}
-        try {
+        // When adding a new task
+        tasksViewModel.addNewTask()
 
-            // Observe the LiveData forever
-            tasksViewModel.newTaskEvent.observeForever(observer)
+        // Then the new task event is triggered
+        val value = tasksViewModel.newTaskEvent.getOrAwaitValue()
 
-            // When adding a new task
-            tasksViewModel.addNewTask()
-
-            // Then the new task event is triggered
-            val value = tasksViewModel.newTaskEvent.value
-            assertThat(value?.getContentIfNotHandled(), (not(nullValue())))
-
-        } finally {
-            // Whatever happens, don't forget to remove the observer!
-            tasksViewModel.newTaskEvent.removeObserver(observer)
-        }
-
+        // LiveData 캐싱 이슈 방지를 위한 getContentIfNotHandled() 호출 참고.
+        assertThat(value.getContentIfNotHandled(), (not(nullValue())))
     }
 
 }
