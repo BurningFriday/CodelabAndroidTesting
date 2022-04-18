@@ -1,0 +1,29 @@
+package com.example.android.architecture.blueprints.todoapp.tasks
+
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.Assert.*
+
+import org.junit.Test
+import org.junit.runner.RunWith
+
+// AndroidX Test 라이브러리의 annotation
+@RunWith(AndroidJUnit4::class)
+class TasksViewModelTest {
+
+    @Test
+    fun addNewTask() {
+
+        // Given a fresh ViewModel
+        // AndroidX Test 라이브러리로부터 applicationContext를 얻어와 뷰모델을 생성한다.
+        val tasksViewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
+
+        // When adding a new task
+        tasksViewModel.addNewTask()
+
+        // Then the new task event is triggered
+        // TODO test LiveData
+
+    }
+
+}
