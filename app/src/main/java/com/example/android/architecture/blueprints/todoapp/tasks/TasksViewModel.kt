@@ -160,6 +160,7 @@ class TasksViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Called by the Data Binding library and the FAB's click listener.
      */
+    // local test 수행할 함수
     fun addNewTask() {
         _newTaskEvent.value = Event(Unit)
     }
